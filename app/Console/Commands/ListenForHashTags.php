@@ -42,7 +42,7 @@ class ListenForHashTags extends Command
         TwitterStreamingApi::publicStream()
             ->whenHears($this->palavras, function (array $tweet) {
                 var_dump("{$tweet['user']['name']} twittou e marcou a gente!" . PHP_EOL);
-                if(!empty($tweet['in_reply_to_status_id_str'])){
+                if(!empty($tweet['in_reply_to_status_id_str']) && str_contains($tweet['text'], 'Pokemon:')){
                     $job = (new ProcessTweet($tweet))->onQueue('batalhas');
                     $this->dispatch($job);
                 }
