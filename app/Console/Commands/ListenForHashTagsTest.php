@@ -39,49 +39,53 @@ class ListenForHashTagsTest extends Command
     public function handle(): void
     {
         // Set measure point
-        Performance::point('handle');
+//        Performance::point('handle');
 
-        $text = "@PokemonRinha desafio aceito! Pokemon:  Blastoise";
-        $nome = "PokemonRinha2";
-        $tweetOriginal = "@PokemonRinha Desafio o Fulano! Pokemon: Charizard";
-        $nomeOriginal = "PokemonRinha1";
-        $id = 1367592659087417344;
+        for ($i=0; $i<3; $i++){
+            $text = "@PokemonRinha desafio aceito! Pokemon:  Blastoise";
+            $nome = "PokemonRinha2";
+            $tweetOriginal = "@PokemonRinha Desafio o Fulano! Pokemon: Charizard";
+            $nomeOriginal = "PokemonRinha1";
+            $id = 1367592659087417344;
 
-        var_dump("Entrou no handle.");
+            var_dump("Entrou no handle.");
 
-        $twitterController = new TwitterController();
-        $pokemons = $twitterController->getPokemons($text, $nome, $tweetOriginal, $nomeOriginal);
+            $twitterController = new TwitterController();
+    //        $tweetOriginal = $twitterController->getTweet(1373700968819343360);
+            $pokemons = $twitterController->getPokemons($text, $nome, $tweetOriginal, $nomeOriginal);
 
-        var_dump("Identificou os pokemons...");
+            var_dump("Identificou os pokemons...");
 
-        $batalhaPokemon = new BatalhaController($pokemons);
-        $batalha = $batalhaPokemon->rinhaPokemon();
+            $batalhaPokemon = new BatalhaController($pokemons);
+            $batalha = $batalhaPokemon->rinhaPokemon();
 
-        var_dump("Fez a batalha...");
+            var_dump("Fez a batalha...");
 
-        // Set point
-        Performance::point('OutputService->getBatalhaOutput');
+            // Set point
+//            Performance::point('OutputService->getBatalhaOutput');
 
-        $output = new Output($batalha['batalha']);
-        $caminhoIMG = $output->getBatalhaOutput();
+            $output = new Output($batalha['batalha']);
+            $caminhoIMG = $output->getBatalhaOutput();
 
-        // Finish point
-        Performance::finish();
+            // Finish point
+//            Performance::finish();
 
-//        if($caminhoIMG['status'] === true){
-//
-//            unset($caminhoIMG['status']);
+    //        if($caminhoIMG['status'] === true){
+    //
+    //            unset($caminhoIMG['status']);
 
-//            $twitterController = new TwitterController();
-//            $twitterController->responderTweet($this->tweet['id'], $batalha['vencedor'], $this->tweet['user']['screen_name'], $caminhoIMG);
-//            $output->deleteOutputs();
+    //            $twitterController = new TwitterController();
+    //            $twitterController->responderTweet($this->tweet['id'], $batalha['vencedor'], $this->tweet['user']['screen_name'], $caminhoIMG);
+    //            $output->deleteOutputs();
 
-//            var_dump("Salvou a imagem, twittou e apagou a imagem.");
-//        }
+    //            var_dump("Salvou a imagem, twittou e apagou a imagem.");
+    //        }
 
-        var_dump("Finalizou o processo");
+            var_dump("Finalizou o processo");
 
-        // Finish all tasks and show test results
-        Performance::results();
+            // Finish all tasks and show test results
+//            Performance::results();
+        }
+
     }
 }

@@ -23,10 +23,12 @@ class Output
         return $this->getBatalhaPJG();
     }
 
-    public function deleteOutputs()
+    public function deleteOutputs(array $caminhoIMG)
     {
         unlink ( 'resources/batalha.pdf');
-        unlink ( 'resources/batalha.jpg');
+        foreach ($caminhoIMG as $img){
+            unlink ($img);
+        }
     }
 
     private function getBatalhaPDF(): void
@@ -54,6 +56,7 @@ class Output
             return $files;
         }catch (\Throwable $throwable){
             Log::Warning("Error no getBatalhaPJG: {$throwable}");
+            var_dump($throwable);
             return ['status' => false];
         }
     }

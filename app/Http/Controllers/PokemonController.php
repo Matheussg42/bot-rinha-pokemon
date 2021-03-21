@@ -79,8 +79,10 @@ class PokemonController extends Controller
 
     private function getAtaque(array $ataqueJSOn):array
     {
-        $move1 = $this->formatarAtaque($ataqueJSOn[mt_rand(0, count($ataqueJSOn))]->move->url);
-        $move2 = $this->formatarAtaque($ataqueJSOn[mt_rand(0, count($ataqueJSOn))]->move->url);
+        $countAtaques = count($ataqueJSOn)-1;
+
+        $move1 = $this->formatarAtaque($ataqueJSOn[mt_rand(1, $countAtaques)]->move->url);
+        $move2 = $this->formatarAtaque($ataqueJSOn[mt_rand(1, $countAtaques)]->move->url);
 
         return [ $move1,$move2 ];
     }

@@ -18,16 +18,21 @@ class TwitterController
         $this->connection = new TwitterOAuth(env('TWITTER_CONSUMER_KEY'), env('TWITTER_CONSUMER_SECRET'), env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
     }
 
-    public function getPokemons(string $resposta, string $usuarioResposta, string $tweetOriginal, string $usuarioOriginal): array
+    public function getPokemons(string $resposta, string $usuarioResposta, string $tweetOriginal, string $usuarioOriginal)
     {
         // Set point
-        Performance::point('TwitterController->'.__FUNCTION__);
+//            Performance::point('TwitterController->'.__FUNCTION__);
+
+        var_dump($resposta);
+        var_dump($usuarioResposta);
+        var_dump($tweetOriginal);
+        var_dump($usuarioOriginal);
 
         $pokemons[] = $this->getEquipe($tweetOriginal, $usuarioOriginal);
         $pokemons[] = $this->getEquipe($resposta, $usuarioResposta);
 
         // Finish point
-        Performance::finish();
+//            Performance::finish();
 
         return $pokemons;
     }
@@ -36,9 +41,10 @@ class TwitterController
     {
         try {
             $mediaIDstr = $this->getImagensTweet($imagens);
+            $treinadorVencedor = $vencedor['treinador'] == $username ? "Você" : "@{$vencedor['treinador']}";
 
             $parameters = [
-                'status' => "Parabéns @{$vencedor['treinador']} você e o seu {$vencedor['pokemon']['nome']} venceram!",
+                'status' => "@$username A Rinha de Pokémon acabou: {$treinadorVencedor} e {$vencedor['pokemon']['nome']} venceram!",
                 'media_ids' => $mediaIDstr,
                 'in_reply_to_status_id' => $tweet,
                 'username' => $username
@@ -51,7 +57,7 @@ class TwitterController
 
     }
 
-    public function getTweet(int $id): array
+    public function getTweet(int $id): object
     {
         return $this->connection->get("statuses/show/$id");
     }
@@ -60,6 +66,11 @@ class TwitterController
     {
         $equipe=[];
         $arrTexto = explode("Pokemon: ", $texto);
+
+        if(empty($arrTexto[1])){
+            $arrTexto = explode("Pokémon: ", $texto);
+        }
+
         $pokemonsDaEquipe = explode(',', $arrTexto[1]);
 
         foreach ($pokemonsDaEquipe as $membro){

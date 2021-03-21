@@ -17,14 +17,15 @@ class BatalhaController extends Controller
     public function __construct(array $pokemons)
     {
         // Set point
-        Performance::point('BatalhaController->'. __FUNCTION__ );
+//        Performance::point('BatalhaController->'. __FUNCTION__ );
 
         $this->equipe1 = $this->formarEquipe($pokemons[0]);
         $this->equipe2 = $this->formarEquipe($pokemons[1]);
+
         $this->prepararbatalha();
 
         // Finish point
-        Performance::finish();
+//        Performance::finish();
     }
 
     public function getEquipe1(): array
@@ -45,7 +46,7 @@ class BatalhaController extends Controller
     public function rinhaPokemon(): array
     {
         // Set point
-        Performance::point('BatalhaController->'. __FUNCTION__);
+//        Performance::point('BatalhaController->'. __FUNCTION__);
 
         $this->defineQuemInicia();
         $this->apresentacaoRinha();
@@ -55,7 +56,7 @@ class BatalhaController extends Controller
         $result['vencedor'] = $this->vencedor;
 
         // Finish point
-        Performance::finish();
+//        Performance::finish();
         return $result;
     }
 

@@ -42,12 +42,12 @@ class ProcessTweet implements ShouldQueue
         $twitterController = new TwitterController();
 
         $tweetOriginal = $twitterController->getTweet($this->tweet['in_reply_to_status_id']);
-        $pokemons = $twitterController->getPokemons($this->tweet['text'], $this->tweet['user']['screen_name'], $tweetOriginal['text'], $tweetOriginal['user']['screen_name']);
-
+        $pokemons = $twitterController->getPokemons($this->tweet['text'], $this->tweet['user']['screen_name'], $tweetOriginal->text, $tweetOriginal->user->screen_name);
         var_dump("Identificou os pokemons...");
 
         $batalhaPokemon = new BatalhaController($pokemons);
-        $batalha = $batalhaPokemon->batalha();
+        var_dump("Montou equipes e preparou a batalha...");
+        $batalha = $batalhaPokemon->rinhaPokemon();
 
         var_dump("Fez a batalha...");
 
@@ -60,7 +60,7 @@ class ProcessTweet implements ShouldQueue
 
             $twitterController = new TwitterController();
             $twitterController->responderTweet($this->tweet['id'], $batalha['vencedor'], $this->tweet['user']['screen_name'], $caminhoIMG);
-//            $output->deleteOutputs();
+            $output->deleteOutputs($caminhoIMG);
 
             var_dump("Salvou a imagem, twittou e apagou a imagem.");
         }
