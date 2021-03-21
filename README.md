@@ -57,4 +57,4 @@ Cada batalha passa pelo seguinte fluxo:
     - Quando o HP de um dos dois Pokémon chegar a ZERO, a batalha termina, e é declarado um vencedor.
 - Gera uma imagem com a batalha que é postada na resposta do Tweet.
 
-<img src=".gitAssets/batalha.jpg" style="width: 550px">
+![](.gitAssets/batalha.jpg =550x)
