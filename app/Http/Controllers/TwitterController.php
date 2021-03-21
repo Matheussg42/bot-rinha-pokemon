@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
 use Abraham\TwitterOAuth\TwitterOAuth;
+use Performance\Performance;
 use Illuminate\Support\Facades\Log;
 
 class TwitterController
@@ -19,8 +20,14 @@ class TwitterController
 
     public function getPokemons(string $resposta, string $usuarioResposta, string $tweetOriginal, string $usuarioOriginal): array
     {
+        // Set point
+        Performance::point('TwitterController->'.__FUNCTION__);
+
         $pokemons[] = $this->getEquipe($tweetOriginal, $usuarioOriginal);
         $pokemons[] = $this->getEquipe($resposta, $usuarioResposta);
+
+        // Finish point
+        Performance::finish();
 
         return $pokemons;
     }

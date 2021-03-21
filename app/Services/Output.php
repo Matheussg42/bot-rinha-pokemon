@@ -73,8 +73,8 @@ class Output
                 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl' crossorigin='anonymous'>
             </head>
             <body style='background-color: #b5b5b5; font-size: 17px;'>
-                <div class='container' style='font-weight: bold; background-color: #b5b5b5;'>
-                    <div class='text-center' style='-webkit-text-stroke: 0.8px #464646;'>
+                <div class='container' style='font-weight: bold;'>
+                    <div class='text-center'>
                         {$this->batalha}
                     </div>
                 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\PokemonController;
 use Illuminate\Http\Request;
+use Performance\Performance;
 
 class BatalhaController extends Controller
 {
@@ -15,9 +16,15 @@ class BatalhaController extends Controller
 
     public function __construct(array $pokemons)
     {
+        // Set point
+        Performance::point('BatalhaController->'. __FUNCTION__ );
+
         $this->equipe1 = $this->formarEquipe($pokemons[0]);
         $this->equipe2 = $this->formarEquipe($pokemons[1]);
         $this->prepararbatalha();
+
+        // Finish point
+        Performance::finish();
     }
 
     public function getEquipe1(): array
@@ -37,18 +44,18 @@ class BatalhaController extends Controller
 
     public function rinhaPokemon(): array
     {
+        // Set point
+        Performance::point('BatalhaController->'. __FUNCTION__);
+
         $this->defineQuemInicia();
         $this->apresentacaoRinha();
-
-        //Enquanto a vida dos pokemons for maior que zero, a batalha continua
-        while ($this->round[0]['pokemon']['stats']['hp'] > 0 && $this->round[1]['pokemon']['stats']['hp'] > 0){
-            //A batalha funciona por turnos. Cada turno, tem um ataque de cada pokemon.
-            $this->turnoBatalha();
-        }
+        $this->batalha();
 
         $result['batalha'] = $this->batalha;
         $result['vencedor'] = $this->vencedor;
 
+        // Finish point
+        Performance::finish();
         return $result;
     }
 
@@ -104,7 +111,7 @@ class BatalhaController extends Controller
         $this->batalha .= "<p style='margin-bottom: 1px; color: {$this->round[array_key_first($this->round)]['pokemon']['corTexto']}'>{$this->round[array_key_first($this->round)]['pokemon']['nome']} foi mais ágil e ataca primeiro!</p>";
     }
 
-    private function turnoBatalha():void
+    private function batalha(): void
     {
         foreach ($this->round as $key => &$pokemon) {
             $adversario = $key == 1 ? 0 : 1;
@@ -131,6 +138,10 @@ class BatalhaController extends Controller
                 $this->vencedor = $pokemon;
                 break;
             }
+        }
+
+        if(empty($this->vencedor)){
+            $this->batalha();
         }
     }
 

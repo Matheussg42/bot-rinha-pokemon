@@ -8,6 +8,7 @@ use App\Services\Output;
 use Illuminate\Console\Command;
 use App\Http\Controllers\TwitterController;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Performance\Performance;
 use Intervention\Image\ImageManager as Image;
 use Mpdf\Mpdf;
 
@@ -37,6 +38,9 @@ class ListenForHashTagsTest extends Command
      */
     public function handle(): void
     {
+        // Set measure point
+        Performance::point('handle');
+
         $text = "@PokemonRinha desafio aceito! Pokemon:  Blastoise";
         $nome = "PokemonRinha2";
         $tweetOriginal = "@PokemonRinha Desafio o Fulano! Pokemon: Charizard";
@@ -46,7 +50,6 @@ class ListenForHashTagsTest extends Command
         var_dump("Entrou no handle.");
 
         $twitterController = new TwitterController();
-
         $pokemons = $twitterController->getPokemons($text, $nome, $tweetOriginal, $nomeOriginal);
 
         var_dump("Identificou os pokemons...");
@@ -56,22 +59,29 @@ class ListenForHashTagsTest extends Command
 
         var_dump("Fez a batalha...");
 
+        // Set point
+        Performance::point('OutputService->getBatalhaOutput');
+
         $output = new Output($batalha['batalha']);
         $caminhoIMG = $output->getBatalhaOutput();
 
-        if($caminhoIMG['status'] === true){
+        // Finish point
+        Performance::finish();
 
-            unset($caminhoIMG['status']);
+//        if($caminhoIMG['status'] === true){
+//
+//            unset($caminhoIMG['status']);
 
 //            $twitterController = new TwitterController();
 //            $twitterController->responderTweet($this->tweet['id'], $batalha['vencedor'], $this->tweet['user']['screen_name'], $caminhoIMG);
 //            $output->deleteOutputs();
 
-            var_dump("Salvou a imagem, twittou e apagou a imagem.");
-        }
+//            var_dump("Salvou a imagem, twittou e apagou a imagem.");
+//        }
 
         var_dump("Finalizou o processo");
-        unset($this->tweet);
 
+        // Finish all tasks and show test results
+        Performance::results();
     }
 }
