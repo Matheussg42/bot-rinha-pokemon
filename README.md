@@ -13,8 +13,8 @@
 <p align="center">
 
   <img alt="Back-end" src="https://img.shields.io/static/v1?label=Back-end&message=Ok&color=27ae60&labelColor=444444">
-  <img alt="Tweet Stream" src="https://img.shields.io/static/v1?label=Tweet Stream&message=Ok&color=27ae60&labelColor=444444">
-  <img alt="Tweet Queue" src="https://img.shields.io/static/v1?label=Tweet Queue&message=Ok&color=27ae60&labelColor=444444">
+  <img alt="Tweet Stream" src="https://img.shields.io/static/v1?label=Tweet-Stream&message=Ok&color=27ae60&labelColor=444444">
+  <img alt="Tweet Queue" src="https://img.shields.io/static/v1?label=Tweet-Queue&message=Ok&color=27ae60&labelColor=444444">
 
 </p>
 
