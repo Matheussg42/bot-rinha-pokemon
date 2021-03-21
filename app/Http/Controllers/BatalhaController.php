@@ -94,10 +94,10 @@ class BatalhaController extends Controller
     {
         $this->batalha = "<div class='row align-items-start'>
                     <div class='col'>
-                        <p style='margin-top: -45px;margin-bottom: 0; height: 55px; color: {$this->round[0]['pokemon']['corTexto']}'>{$this->round[0]['treinador']} escolheu {$this->round[0]['pokemon']['nome']}(HP {$this->round[0]['pokemon']['stats']['hp']}) <img src='{$this->round[0]['pokemon']['imagem']}'></p>
+                        <p style='margin-top: -45px;margin-bottom: 0; height: 55px; color: {$this->round[0]['pokemon']['corTexto']}'>{$this->round[0]['treinador']} escolheu {$this->round[0]['pokemon']['nome']}(HP {$this->round[0]['pokemon']['stats']['hp']}) <img style='width: 70px' src='{$this->round[0]['pokemon']['imagem']}'></p>
                     </div>
                     <div class='col'>
-                        <p style='margin-top: -40px; margin-bottom: -5px; height: 55px; color: {$this->round[1]['pokemon']['corTexto']}'>{$this->round[1]['treinador']} escolheu {$this->round[1]['pokemon']['nome']}(HP {$this->round[1]['pokemon']['stats']['hp']}) <img src='{$this->round[1]['pokemon']['imagem']}'></p>
+                        <p style='margin-top: -20px; margin-bottom: -5px; height: 55px; color: {$this->round[1]['pokemon']['corTexto']}'>{$this->round[1]['treinador']} escolheu {$this->round[1]['pokemon']['nome']}(HP {$this->round[1]['pokemon']['stats']['hp']}) <img style='width: 70px' src='{$this->round[1]['pokemon']['imagem']}'></p>
                     </div>
                 </div>";
 

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8acb9e02-edc1-476d-8731-4b75f4495a0c" name="Default Changelist" comment="" />
+    <list default="true" id="8acb9e02-edc1-476d-8731-4b75f4495a0c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/ListenForHashTagsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/ListenForHashTagsTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BatalhaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BatalhaController.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,6 +16,9 @@
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -139,6 +148,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1ow97ushah9tDwFwPsOLyGcU5lm" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -147,7 +157,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/tests/Unit" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.gitAssets" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
@@ -155,6 +165,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu-18.04\var\www\html\twitter-stream\.gitAssets" />
       <recent name="\\wsl$\Ubuntu-18.04\var\www\html\twitter-stream\tests\Unit" />
       <recent name="\\wsl$\Ubuntu-18.04\var\www\html\twitter-stream\app\Http\Controllers" />
       <recent name="\\wsl$\Ubuntu-18.04\var\www\html\twitter-stream\app\Console\Commands" />
@@ -194,12 +205,23 @@
       <workItem from="1615936581174" duration="2248000" />
       <workItem from="1616195238075" duration="1375000" />
       <workItem from="1616255383005" duration="12132000" />
-      <workItem from="1616290129726" duration="6091000" />
+      <workItem from="1616290129726" duration="9249000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

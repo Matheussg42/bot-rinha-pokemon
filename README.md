@@ -1,62 +1,60 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a target="_blank" href="https://matheus.sgomes.dev"><img src="https://matheus.sgomes.dev/img/logo_azul.png"></a></p>
+
+
+👤 **Matheus S. Gomes**
+
+* Website: https://matheus.sgomes.dev
+* Github: [@Matheussg42](https://github.com/Matheussg42)
+* LinkedIn: [@matheussg](https://linkedin.com/in/matheussg)
+* Bot: [@PokemonRinha](https://twitter.com/PokemonRinha)
+
+---
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+
+  <img alt="Back-end" src="https://img.shields.io/static/v1?label=Back-end&message=Ok&color=27ae60&labelColor=444444">
+  <img alt="Tweet Stream" src="https://img.shields.io/static/v1?label=Tweet Stream&message=Ok&color=27ae60&labelColor=444444">
+  <img alt="Tweet Queue" src="https://img.shields.io/static/v1?label=Tweet Queue&message=Ok&color=27ae60&labelColor=444444">
+
 </p>
 
-## About Laravel
+#### Nesta Página:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* [Tecnologias](#tecnologias)
+* [Projeto](#projeto)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<span id="tecnologias"></span>
+## Tecnologias
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-## Learning Laravel
+- [PHP](https://www.php.net/)
+- [Laravel](https://laravel.com/)
+- [PokéAPI](https://pokeapi.co/)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<span id="projeto"></span>
+## Projeto
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+O Bot é um projeto feito para treinar o conhecimento nas tecnologias citadas a cima. Neste projeto, foi criada uma batalha pokemon que será feita entre dois usuários do Twitter.
 
-## Laravel Sponsors
+Utilizada a [PokéAPI](https://pokeapi.co/) para retornar montar informações do Pokemon e preparar a batalha. Além de usarmos a biblioteca `Spatie\LaravelTwitterStreamingApi` para pegar os tweets em tempo real, e o `Abraham\TwitterOAuth` para pegar tweets, e postar a resposta com o resultado da batalha.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Todos os tweets localizados pelo `Spatie\LaravelTwitterStreamingApi` precisam marcar o bot [@PokemonRinha](https://twitter.com/PokemonRinha), e ser uma respota(Apenas a resposta de um desafio entra no fluxo). Caso o tweet cumpra os requisitos, ele é inserido em uma `Queue`(Fila), para que o sistema faça o processamento de todas as batalhas, não importanto o fluxo de batalhas naquele momento.
 
-### Premium Partners
+Cada batalha passa pelo seguinte fluxo:
+- Analisa os tweets e encontra os Pokémons escolhidos.
+- Forma as equipes contendo os @'s que estão participando da batalha e então consulta a [PokéAPI](https://pokeapi.co/) para retornar as informações do Pokémon.
+    - [Dados do Pokémon - https://pokeapi.co/api/v2/pokemon/charmander](https://pokeapi.co/api/v2/pokemon/charmander)
+    - [Tipo do Pokémon - https://pokeapi.co/api/v2/type/10](https://pokeapi.co/api/v2/type/10)
+    - [Ataques do Pokémon(Pegamos dois ataques randomicamente) - https://pokeapi.co/api/v2/move/53](https://pokeapi.co/api/v2/move/53)
+    - [Cor referente ao tipo. Ex: Fogo => Vermelho - https://pokeapi.co/api/v2/pokemon-species/4](https://pokeapi.co/api/v2/pokemon-species/4/)
+- Aplica bônus nos ataques baseado nos tipos dos Pokémons.
+- Define quem começa baseado na Stat de velocidade.
+- Faz a batalha
+    - A batalha funciona por turnos. A cada turno, há a oportunidade dos dois Pokémons atacarem.
+    - Na batalha, os Pokémons podem se esquivar de um ataque baseado na Stat de velocidade.
+    - Após um ataque(Randômico), o número referente ao dano do ataque é subtraído do HP do adversário.
+    - Quando o HP de um dos dois Pokémon chegar a ZERO, a batalha termina, e é declarado um vencedor.
+- Gera uma imagem com a batalha que é postada na resposta do Tweet.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+![Batalha](./.gitAssets/batalha.jpg)
