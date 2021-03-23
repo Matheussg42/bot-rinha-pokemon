@@ -25,7 +25,7 @@ class Output
 
     public function deleteOutputs(array $caminhoIMG)
     {
-        unlink ( 'resources/batalha.pdf');
+        unlink ( '/tmp/batalha.pdf');
         foreach ($caminhoIMG as $img){
             unlink ($img);
         }
@@ -36,21 +36,21 @@ class Output
         $batalhaCompleta = $this->htmlBatalha();
         $mpdf = new Mpdf();
         $mpdf->WriteHTML($batalhaCompleta);
-        $mpdf->Output('resources/batalha.pdf','F');
+        $mpdf->Output('/tmp/batalha.pdf','F');
     }
 
     private function getBatalhaPJG()
     {
         try {
             $files = ['status' => true];
-            $pdf = new Pdf('resources/batalha.pdf');
+            $pdf = new Pdf('/tmp/batalha.pdf');
 
             foreach (range(1, $pdf->getNumberOfPages()) as $pageNumber) {
                 $pdf->setPage($pageNumber)
                     ->setCompressionQuality(100)
-                    ->saveImage('resources/img/batalha_'.$pageNumber.'.jpg');
+                    ->saveImage('/tmp/imgBatalha/batalha_'.$pageNumber.'.jpg');
 
-                array_push($files, 'resources/img/batalha_'.$pageNumber.'.jpg');
+                array_push($files, '/tmp/imgBatalha/batalha_'.$pageNumber.'.jpg');
             }
 
             return $files;
