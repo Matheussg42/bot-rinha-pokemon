@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  batalha:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: batalha
+    restart: unless-stopped

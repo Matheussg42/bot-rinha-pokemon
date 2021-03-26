@@ -13,3 +13,5 @@ npm-debug.log
 yarn-error.log
 /resources
 /.idea
+my_rsa_key
+my_rsa_key.pub

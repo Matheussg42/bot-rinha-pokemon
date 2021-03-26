@@ -69,7 +69,8 @@ class BatalhaController extends Controller
             try {
                 array_push($equipeFormada, ['treinador'=> $equipe['treinador'], 'pokemon'=> $pokemonController->getPokemon(strtolower(trim($equipe['pokemon'])))]);
             } catch (\Exception $e) {
-                throw new \DomainException($e);
+                var_dump("Pokemon({$equipe['pokemon']}) do {$equipe['treinador']} não encontrado.");
+                return ['error'=>true];
             }
         }
 

@@ -20,6 +20,10 @@ class PokemonController extends Controller
         $response = $response->getBody();
         $response = json_decode($response);
 
+        if(!empty($response)){
+            throw new \Exception("Pokemon Não encontrado");
+        }
+
         $type = $this->getTipoInfo($response->types[0]->type);
         $ataques = $this->getAtaque($response->moves);
         $stats = $this->getStats($response->stats);
@@ -79,10 +83,10 @@ class PokemonController extends Controller
 
     private function getAtaque(array $ataqueJSOn):array
     {
-        $countAtaques = count($ataqueJSOn)-1;
+        $countAtaques = count($ataqueJSOn) == 0 ? 0 : count($ataqueJSOn)-1;
 
-        $move1 = $this->formatarAtaque($ataqueJSOn[mt_rand(1, $countAtaques)]->move->url);
-        $move2 = $this->formatarAtaque($ataqueJSOn[mt_rand(1, $countAtaques)]->move->url);
+        $move1 = $this->formatarAtaque($ataqueJSOn[mt_rand(0, $countAtaques)]->move->url);
+        $move2 = $this->formatarAtaque($ataqueJSOn[mt_rand(0, $countAtaques)]->move->url);
 
         return [ $move1,$move2 ];
     }

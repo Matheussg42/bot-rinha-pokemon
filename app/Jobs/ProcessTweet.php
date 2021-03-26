@@ -43,29 +43,32 @@ class ProcessTweet implements ShouldQueue
 
         $tweetOriginal = $twitterController->getTweet($this->tweet['in_reply_to_status_id']);
         $pokemons = $twitterController->getPokemons($this->tweet['text'], $this->tweet['user']['screen_name'], $tweetOriginal->text, $tweetOriginal->user->screen_name);
+
         var_dump("Identificou os pokemons...");
-
         $batalhaPokemon = new BatalhaController($pokemons);
-        var_dump("Montou equipes e preparou a batalha...");
-        $batalha = $batalhaPokemon->rinhaPokemon();
 
-        var_dump("Fez a batalha...");
+        if(!isset($pokemons['status'])) {
+            var_dump("Montou equipes e preparou a batalha...");
+            $batalha = $batalhaPokemon->rinhaPokemon();
 
-        $output = new Output($batalha['batalha']);
-        $caminhoIMG = $output->getBatalhaOutput();
+            var_dump("Fez a batalha...");
 
-        if($caminhoIMG['status'] === true){
+            $output = new Output($batalha['batalha']);
+            $caminhoIMG = $output->getBatalhaOutput();
 
-            unset($caminhoIMG['status']);
+            if($caminhoIMG['status'] === true){
 
-            $twitterController = new TwitterController();
-            $twitterController->responderTweet($this->tweet['id'], $batalha['vencedor'], $this->tweet['user']['screen_name'], $caminhoIMG);
-            $output->deleteOutputs($caminhoIMG);
+                unset($caminhoIMG['status']);
 
-            var_dump("Salvou a imagem, twittou e apagou a imagem.");
+                $twitterController = new TwitterController();
+                $twitterController->responderTweet($this->tweet['id'], $batalha['vencedor'], $this->tweet['user']['screen_name'], $caminhoIMG);
+                $output->deleteOutputs($caminhoIMG);
+
+                var_dump("Salvou a imagem, twittou e apagou a imagem.");
+            }
+
+            var_dump("Finalizou o processo");
+            unset($this->tweet);
         }
-
-        var_dump("Finalizou o processo");
-        unset($this->tweet);
     }
 }

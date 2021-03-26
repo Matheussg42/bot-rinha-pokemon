@@ -11,10 +11,12 @@ use Spatie\PdfToImage\Pdf;
 class Output
 {
     private string $batalha;
+    private string $folder;
 
     public function __construct(string $batalha)
     {
         $this->batalha = $batalha;
+        $this->folder = env('RESOURCE_FOLDER');
     }
 
     public function getBatalhaOutput(): array
@@ -25,7 +27,7 @@ class Output
 
     public function deleteOutputs(array $caminhoIMG)
     {
-        unlink ( '/tmp/batalha.pdf');
+        unlink ( "{$this->folder}/batalha.pdf");
         foreach ($caminhoIMG as $img){
             unlink ($img);
         }
@@ -36,21 +38,21 @@ class Output
         $batalhaCompleta = $this->htmlBatalha();
         $mpdf = new Mpdf();
         $mpdf->WriteHTML($batalhaCompleta);
-        $mpdf->Output('/tmp/batalha.pdf','F');
+        $mpdf->Output("{{$this->folder}}/batalha.pdf",'F');
     }
 
     private function getBatalhaPJG()
     {
         try {
             $files = ['status' => true];
-            $pdf = new Pdf('/tmp/batalha.pdf');
+            $pdf = new Pdf("{$this->folder}/batalha.pdf");
 
             foreach (range(1, $pdf->getNumberOfPages()) as $pageNumber) {
                 $pdf->setPage($pageNumber)
                     ->setCompressionQuality(100)
-                    ->saveImage('/tmp/imgBatalha/batalha_'.$pageNumber.'.jpg');
+                    ->saveImage("{$this->folder}/img/batalha_{$pageNumber}.jpg");
 
-                array_push($files, '/tmp/imgBatalha/batalha_'.$pageNumber.'.jpg');
+                array_push($files, "{$this->folder}/img/batalha_{$pageNumber}.jpg");
             }
 
             return $files;
