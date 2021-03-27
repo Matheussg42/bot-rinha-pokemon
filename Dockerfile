@@ -23,6 +23,6 @@ RUN mkdir /tmp/img \
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
 && php /usr/local/bin/composer install \
-&& php artisan migrate
+&& php artisan migrate --force
 
 CMD php artisan queue:work --queue=batalhas & php artisan twitter:listen-for-hash-tags
