@@ -16,6 +16,11 @@ class PokemonController extends Controller
      */
     public function getPokemon(string $pokemon):array
     {
+        $pokemonOriginal='';
+        if($pokemon == 'ditto'){
+            $pokemonOriginal = $pokemon;
+            $pokemon = mt_rand(1, 151);
+        }
         $response = Http::get("https://pokeapi.co/api/v2/pokemon/{$pokemon}");
         $response = $response->getBody();
         $response = json_decode($response);
@@ -31,6 +36,7 @@ class PokemonController extends Controller
 
         return [
             'nome'=> $response->name,
+            'pokemonOriginal'=> $pokemonOriginal,
             'peso'=> $response->weight,
             'altura'=> $response->height,
             'imagem'=> $response->sprites->front_default,

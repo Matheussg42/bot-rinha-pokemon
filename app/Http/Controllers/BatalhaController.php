@@ -97,10 +97,10 @@ class BatalhaController extends Controller
     {
         $this->batalha = "<div class='row align-items-start'>
                     <div class='col'>
-                        <p style='margin-top: -45px;margin-bottom: 0; height: 55px; color: {$this->round[0]['pokemon']['corTexto']}'>{$this->round[0]['treinador']} escolheu {$this->round[0]['pokemon']['nome']}(HP {$this->round[0]['pokemon']['stats']['hp']}) <img style='width: 70px' src='{$this->round[0]['pokemon']['imagem']}'></p>
+                        {$this->apresentacaoPokemon($this->round[0])}
                     </div>
                     <div class='col'>
-                        <p style='margin-top: -20px; margin-bottom: -5px; height: 55px; color: {$this->round[1]['pokemon']['corTexto']}'>{$this->round[1]['treinador']} escolheu {$this->round[1]['pokemon']['nome']}(HP {$this->round[1]['pokemon']['stats']['hp']}) <img style='width: 70px' src='{$this->round[1]['pokemon']['imagem']}'></p>
+                        {$this->apresentacaoPokemon($this->round[1])}
                     </div>
                 </div>";
 
@@ -139,6 +139,16 @@ class BatalhaController extends Controller
         if(empty($this->vencedor)){
             $this->batalha();
         }
+    }
+
+    private function apresentacaoPokemon(array $pokemon):string
+    {
+        $retorno = "<p style='margin-top: -45px;margin-bottom: 0; height: 55px; color: {$pokemon['pokemon']['corTexto']}'>{$pokemon['treinador']} escolheu {$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']}) <img style='width: 70px' src='{$pokemon['pokemon']['imagem']}'></p>";
+        if(!empty($pokemon['pokemon']['pokemonOriginal'])){
+            $retorno = "<p style='margin-bottom: 0; height: 55px; color: pink'>{$pokemon['treinador']} escolheu Ditto!</p><p style='margin-top: -55px;margin-bottom: 15px; height: 55px; color: pink'>Ditto usa <b>Impostor</b> se transforma em <span style='color: {$pokemon['pokemon']['corTexto']}'>{$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']})</span> <img style='width: 70px' src='{$pokemon['pokemon']['imagem']}'></p>";
+        }
+
+        return $retorno;
     }
 
 }

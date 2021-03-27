@@ -40,7 +40,7 @@ class ListenForHashTagsTest extends Command
     {
         $text = "@PokemonRinha desafio aceito! Pokemon:  Blastoise";
         $nome = "PokemonRinha2";
-        $tweetOriginal = "@PokemonRinha Desafio o Fulano! Pokemon: Charizard";
+        $tweetOriginal = "@PokemonRinha Desafio o Fulano! Pokemon: Ditto";
         $nomeOriginal = "PokemonRinha1";
         $id = 1367592659087417344;
 
