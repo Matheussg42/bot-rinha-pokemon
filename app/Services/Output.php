@@ -38,7 +38,7 @@ class Output
         $batalhaCompleta = $this->htmlBatalha();
         $mpdf = new Mpdf();
         $mpdf->WriteHTML($batalhaCompleta);
-        $mpdf->Output("{{$this->folder}}/batalha.pdf",'F');
+        $mpdf->Output("{$this->folder}/batalha.pdf",'F');
     }
 
     private function getBatalhaPJG()
@@ -76,6 +76,12 @@ class Output
 
                 <!-- CSS only -->
                 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl' crossorigin='anonymous'>
+                <!-- <style>
+                @page {
+                    background: url('') no-repeat 0 0;
+                    background-image-resize: 6;
+                }
+                </style> -->
             </head>
             <body style='background-color: #b5b5b5; font-size: 17px;'>
                 <div class='container' style='font-weight: bold;'>

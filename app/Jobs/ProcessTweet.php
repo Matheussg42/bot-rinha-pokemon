@@ -47,7 +47,7 @@ class ProcessTweet implements ShouldQueue
         var_dump("Identificou os pokemons...");
         $batalhaPokemon = new BatalhaController($pokemons);
 
-        if(!isset($pokemons['status'])) {
+        if($batalhaPokemon->getStatus()) {
             var_dump("Montou equipes e preparou a batalha...");
             $batalha = $batalhaPokemon->rinhaPokemon();
 

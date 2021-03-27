@@ -13,19 +13,12 @@ class BatalhaController extends Controller
     private array $round;
     private string $batalha;
     private array $vencedor;
+    private bool $status = true;
 
     public function __construct(array $pokemons)
     {
-        // Set point
-//        Performance::point('BatalhaController->'. __FUNCTION__ );
-
         $this->equipe1 = $this->formarEquipe($pokemons[0]);
         $this->equipe2 = $this->formarEquipe($pokemons[1]);
-
-        $this->prepararbatalha();
-
-        // Finish point
-//        Performance::finish();
     }
 
     public function getEquipe1(): array
@@ -38,6 +31,11 @@ class BatalhaController extends Controller
         return $this->equipe2;
     }
 
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
     public function getRound(): array
     {
         return $this->round;
@@ -45,9 +43,7 @@ class BatalhaController extends Controller
 
     public function rinhaPokemon(): array
     {
-        // Set point
-//        Performance::point('BatalhaController->'. __FUNCTION__);
-
+        $this->prepararbatalha();
         $this->defineQuemInicia();
         $this->apresentacaoRinha();
         $this->batalha();
@@ -55,8 +51,6 @@ class BatalhaController extends Controller
         $result['batalha'] = $this->batalha;
         $result['vencedor'] = $this->vencedor;
 
-        // Finish point
-//        Performance::finish();
         return $result;
     }
 
@@ -70,7 +64,7 @@ class BatalhaController extends Controller
                 array_push($equipeFormada, ['treinador'=> $equipe['treinador'], 'pokemon'=> $pokemonController->getPokemon(strtolower(trim($equipe['pokemon'])))]);
             } catch (\Exception $e) {
                 var_dump("Pokemon({$equipe['pokemon']}) do {$equipe['treinador']} não encontrado.");
-                return ['error'=>true];
+                $this->status = false;
             }
         }
 

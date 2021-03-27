@@ -20,9 +20,6 @@ class TwitterController
 
     public function getPokemons(string $resposta, string $usuarioResposta, string $tweetOriginal, string $usuarioOriginal)
     {
-        // Set point
-//            Performance::point('TwitterController->'.__FUNCTION__);
-
         var_dump($resposta);
         var_dump($usuarioResposta);
         var_dump($tweetOriginal);
@@ -30,9 +27,6 @@ class TwitterController
 
         $pokemons[] = $this->getEquipe($tweetOriginal, $usuarioOriginal);
         $pokemons[] = $this->getEquipe($resposta, $usuarioResposta);
-
-        // Finish point
-//            Performance::finish();
 
         return $pokemons;
     }

@@ -20,7 +20,7 @@ class PokemonController extends Controller
         $response = $response->getBody();
         $response = json_decode($response);
 
-        if(!empty($response)){
+        if(empty($response)){
             throw new \Exception("Pokemon Não encontrado");
         }
 
