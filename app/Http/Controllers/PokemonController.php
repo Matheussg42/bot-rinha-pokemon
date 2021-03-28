@@ -25,7 +25,7 @@ class PokemonController extends Controller
         $pokemon = str_replace(' ', '-', $pokemon);
         $pokemon = str_replace('.', '-', $pokemon);
         $pokemon = str_replace('--', '-', $pokemon);
-        
+
         $response = Http::get("https://pokeapi.co/api/v2/pokemon/{$pokemon}");
         $response = $response->getBody();
         $response = json_decode($response);
@@ -67,13 +67,13 @@ class PokemonController extends Controller
     private function aplicarBonus(): void
     {
         if(in_array($this->round[1]['pokemon']['tipo']['nome'], $this->round[0]['pokemon']['tipo']['infringeCriticoEm'])){
-            $this->round[0]['pokemon']['ataques'][0]['dano']*=1.4;
-            $this->round[0]['pokemon']['ataques'][1]['dano']*=1.4;
+            $this->round[0]['pokemon']['ataques'][0]['dano']*=1.6;
+            $this->round[0]['pokemon']['ataques'][1]['dano']*=1.6;
         }
 
         if(in_array($this->round[0]['pokemon']['tipo']['nome'], $this->round[1]['pokemon']['tipo']['infringeCriticoEm'])){
-            $this->round[1]['pokemon']['ataques'][0]['dano']*=1.4;
-            $this->round[1]['pokemon']['ataques'][1]['dano']*=1.4;
+            $this->round[1]['pokemon']['ataques'][0]['dano']*=1.6;
+            $this->round[1]['pokemon']['ataques'][1]['dano']*=1.6;
         }
     }
 
