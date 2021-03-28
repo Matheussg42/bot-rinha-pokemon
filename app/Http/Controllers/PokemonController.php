@@ -19,8 +19,13 @@ class PokemonController extends Controller
         $pokemonOriginal='';
         if($pokemon == 'ditto'){
             $pokemonOriginal = $pokemon;
-            $pokemon = mt_rand(1, 151);
+            $pokemon = mt_rand(1, 300);
         }
+
+        $pokemon = str_replace(' ', '-', $pokemon);
+        $pokemon = str_replace('.', '-', $pokemon);
+        $pokemon = str_replace('--', '-', $pokemon);
+        
         $response = Http::get("https://pokeapi.co/api/v2/pokemon/{$pokemon}");
         $response = $response->getBody();
         $response = json_decode($response);
