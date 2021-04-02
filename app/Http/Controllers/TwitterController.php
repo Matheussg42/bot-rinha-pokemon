@@ -38,7 +38,7 @@ class TwitterController
             $treinadorVencedor = $vencedor['treinador'] == $username ? "Você" : "@{$vencedor['treinador']}";
 
             $parameters = [
-                'status' => "@$username A Rinha de Pokémon acabou: {$treinadorVencedor} e {$vencedor['pokemon']['nome']} venceram!",
+                'status' => "@$username A Rinha de Pokémon acabou: {$treinadorVencedor} e {$vencedor['pokemon']['nome']} venceram! #Pokemon #PokemonBattle #BatalhaPokemon #RinhaDePokemon",
                 'media_ids' => $mediaIDstr,
                 'in_reply_to_status_id' => $tweet,
                 'username' => $username
