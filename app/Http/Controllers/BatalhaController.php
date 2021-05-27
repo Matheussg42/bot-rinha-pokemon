@@ -82,8 +82,6 @@ class BatalhaController extends Controller
 
         if($this->round[0]['pokemon']['stats']['speed'] > $this->round[1]['pokemon']['stats']['speed']){
             $this->round[0]['pokemon']['inicia'] = 1;
-        } elseif ($this->round[0]['pokemon']['stats']['speed'] == $this->round[1]['pokemon']['stats']['speed']){
-            $this->round[0]['pokemon']['inicia'] = 1;
         } else {
             $this->round[1]['pokemon']['inicia'] = 1;
         }
@@ -143,7 +141,7 @@ class BatalhaController extends Controller
 
     private function apresentacaoPokemon(array $pokemon):string
     {
-        $retorno = "<p style='margin-top: -45px;margin-bottom: 0; height: 55px; color: {$pokemon['pokemon']['corTexto']}'>{$pokemon['treinador']} escolheu {$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']}) <img style='width: 70px' src='{$pokemon['pokemon']['imagem']}'></p>";
+        $retorno = "<p style='margin-bottom: 0; height: 55px; color: {$pokemon['pokemon']['corTexto']}'>{$pokemon['treinador']} escolheu {$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']}) <img style='width: 70px' src='{$pokemon['pokemon']['imagem']}'></p>";
         if(!empty($pokemon['pokemon']['pokemonOriginal'])){
             $retorno = "<p style='margin-bottom: 0; height: 55px; color: pink'>{$pokemon['treinador']} escolheu Ditto!</p><p style='margin-top: -55px;margin-bottom: 15px; height: 55px; color: pink'>Ditto usa <b>Impostor</b> se transforma em <span style='color: {$pokemon['pokemon']['corTexto']}'>{$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']})</span> <img style='width: 70px' src='{$pokemon['pokemon']['imagem']}'></p>";
         }
