@@ -74,16 +74,17 @@ class Output
 
                 <title>Batalha</title>
 
-                <!-- CSS only -->
+                <!-- CSS only-->
                 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl' crossorigin='anonymous'>
-                <!-- <style>
+
+                 <style>
                 @page {
-                    background: url('') no-repeat 0 0;
+                    background: url('public/bg.png') no-repeat 0 0;
                     background-image-resize: 6;
                 }
-                </style> -->
+                </style>
             </head>
-            <body style='background-color: #b5b5b5; font-size: 17px;'>
+            <body style='background-color: '#f6f6f6'; font-size: 17px;'>
                 <div class='container' style='font-weight: bold;'>
                     <div class='text-center'>
                         {$this->batalha}

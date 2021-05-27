@@ -38,9 +38,9 @@ class ListenForHashTagsTest extends Command
      */
     public function handle(): void
     {
-        $text = "@PokemonRinha desafio aceito! Pokemon:  Blastoise";
+        $text = "@PokemonRinha desafio aceito! Pokemon:  Venusaur";
         $nome = "PokemonRinha2";
-        $tweetOriginal = "@PokemonRinha Desafio o Fulano! Pokemon: Mr. Mime";
+        $tweetOriginal = "@PokemonRinha Desafio o Fulano! Pokemon: Charizard";
         $nomeOriginal = "PokemonRinha1";
         $id = 1367592659087417344;
 

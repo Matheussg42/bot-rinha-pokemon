@@ -102,7 +102,8 @@ class BatalhaController extends Controller
                     </div>
                 </div>";
 
-        $this->batalha .= "<p style='margin-bottom: 1px; color: {$this->round[array_key_first($this->round)]['pokemon']['corTexto']}'>{$this->round[array_key_first($this->round)]['pokemon']['nome']} foi mais ágil e ataca primeiro!</p>";
+        $corInicia = config("services.colors.{$this->round[array_key_first($this->round)]['pokemon']['corTexto']}");
+        $this->batalha .= "<p style='margin-bottom: 1px; color: {$corInicia}'>{$this->round[array_key_first($this->round)]['pokemon']['nome']} foi mais ágil e ataca primeiro!</p>";
     }
 
     private function batalha(): void
@@ -112,23 +113,26 @@ class BatalhaController extends Controller
             $valor = mt_rand(0, 43);
             $porcentagem = $this->round[$adversario]['pokemon']['stats']['speed'] / 10;
 
-            $this->batalha .= "<p style='margin-bottom: 1px; color: {$pokemon['pokemon']['corTexto']}'>{$pokemon['pokemon']['nome']} se prepara para atacar <span style='color: {$this->round[$adversario]['pokemon']['corTexto']}'>{$this->round[$adversario]['pokemon']['nome']}</span> e...</p>";
+            $corPokemon = config("services.colors.{$pokemon['pokemon']['corTexto']}");
+            $corAdversario = config("services.colors.{$this->round[$adversario]['pokemon']['corTexto']}");
+
+            $this->batalha .= "<p style='margin-bottom: 1px; color: {$corPokemon}'>{$pokemon['pokemon']['nome']} se prepara para atacar <span style='color: {$corAdversario}'>{$this->round[$adversario]['pokemon']['nome']}</span> e...</p>";
 
             if ($valor > $porcentagem) {
                 $ataqueRand = array_rand($pokemon['pokemon']['ataques'], 1);
-                $this->batalha .= "<p style='margin-bottom: 1px; color: {$pokemon['pokemon']['corTexto']}'>Efetivo! {$pokemon['pokemon']['nome']} usa {$pokemon['pokemon']['ataques'][$ataqueRand]['nome']} em <span style='color: {$this->round[$adversario]['pokemon']['corTexto']}'>{$this->round[$adversario]['pokemon']['nome']}</span> que sofre {$pokemon['pokemon']['ataques'][$ataqueRand]['dano']} de dano.</p>";
+                $this->batalha .= "<p style='margin-bottom: 1px; color: {$corPokemon}'>Efetivo! {$pokemon['pokemon']['nome']} usa {$pokemon['pokemon']['ataques'][$ataqueRand]['nome']} em <span style='color: {$corAdversario}'>{$this->round[$adversario]['pokemon']['nome']}</span> que sofre {$pokemon['pokemon']['ataques'][$ataqueRand]['dano']} de dano.</p>";
 
                 $this->round[$adversario]['pokemon']['stats']['hp'] -= $pokemon['pokemon']['ataques'][$ataqueRand]['dano'];
                 $this->round[$adversario]['pokemon']['stats']['hp'] = $this->round[$adversario]['pokemon']['stats']['hp'] <= 0 ? 0 : $this->round[$adversario]['pokemon']['stats']['hp'];
 
-                $this->batalha .= "<p style='margin-bottom: 1px; color: {$this->round[$adversario]['pokemon']['corTexto']}'>{$this->round[$adversario]['pokemon']['nome']} possui {$this->round[$adversario]['pokemon']['stats']['hp']} de vida.</p>";
+                $this->batalha .= "<p style='margin-bottom: 1px; color: {$corAdversario}'>{$this->round[$adversario]['pokemon']['nome']} possui {$this->round[$adversario]['pokemon']['stats']['hp']} de vida.</p>";
             } else {
-                $this->batalha .= "<p style='margin-bottom: 1px; color: #FFFFFF'>{$this->round[$adversario]['pokemon']['nome']} esquiva!</p>";
+                $this->batalha .= "<p style='margin-bottom: 1px; color: #333333'>{$this->round[$adversario]['pokemon']['nome']} esquiva!</p>";
             }
 
             if ($this->round[$adversario]['pokemon']['stats']['hp'] == 0) {
-                $this->batalha .= "<p style='margin-bottom: 1px; color: {$this->round[$adversario]['pokemon']['corTexto']}'>{$this->round[$adversario]['pokemon']['nome']} desmaiou!</p>";
-                $this->batalha .= "<p style='margin-top: -45px; margin-bottom: 0; height: 65px; color: {$pokemon['pokemon']['corTexto']}'><img src='{$pokemon['pokemon']['imagem']}' /> {$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']}) venceu!</p>";
+                $this->batalha .= "<p style='margin-bottom: 1px; color: {$corAdversario}'>{$this->round[$adversario]['pokemon']['nome']} desmaiou!</p>";
+                $this->batalha .= "<p style='margin-top: -45px; margin-bottom: 0; height: 65px; color: {$corPokemon}'><img src='{$pokemon['pokemon']['imagem']}' /> {$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']}) venceu!</p>";
                 $this->vencedor = $pokemon;
                 break;
             }
@@ -141,9 +145,10 @@ class BatalhaController extends Controller
 
     private function apresentacaoPokemon(array $pokemon):string
     {
-        $retorno = "<p style='margin-top: -10px;margin-bottom: 0; height: 55px; color: {$pokemon['pokemon']['corTexto']}'>{$pokemon['treinador']} escolheu {$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']}) <img style='width: 70px' src='{$pokemon['pokemon']['imagem']}'></p>";
+        $cor = config("services.colors.{$pokemon['pokemon']['corTexto']}");
+        $retorno = "<p style='margin-top: -10px;margin-bottom: 0; height: 55px; color: {$cor}'>{$pokemon['treinador']} escolheu {$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']}) <img style='width: 70px' src='{$pokemon['pokemon']['imagem']}'></p>";
         if(!empty($pokemon['pokemon']['pokemonOriginal'])){
-            $retorno = "<p style='margin-bottom: 0; height: 55px; color: pink'>{$pokemon['treinador']} escolheu Ditto!</p><p style='margin-top: -55px;margin-bottom: 15px; height: 55px; color: pink'>Ditto usa <b>Impostor</b> se transforma em <span style='color: {$pokemon['pokemon']['corTexto']}'>{$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']})</span> <img style='width: 70px' src='{$pokemon['pokemon']['imagem']}'></p>";
+            $retorno = "<p style='margin-bottom: 0; height: 55px; color: #f368e0'>{$pokemon['treinador']} escolheu Ditto!</p><p style='margin-top: -55px;margin-bottom: 15px; height: 55px; color: #f368e0'>Ditto usa <b>Impostor</b> se transforma em <span style='color: {$cor}'>{$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']})</span> <img style='width: 70px' src='{$pokemon['pokemon']['imagem']}'></p>";
         }
 
         return $retorno;

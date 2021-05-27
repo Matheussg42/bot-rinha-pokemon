@@ -30,4 +30,17 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'colors' => [
+        'black' => '#333333',
+        'blue' => '#2980b9',
+        'brown' => '#6F362D',
+        'gray' => '#d1ccc0',
+        'green' => '#218c74',
+        'pink' => '#f368e0',
+        'purple' => '#6c5ce7',
+        'red' => '#c0392b',
+        'white' => '#bdc3c7',
+        'yellow' => '#f1c40f',
+    ]
+
 ];
