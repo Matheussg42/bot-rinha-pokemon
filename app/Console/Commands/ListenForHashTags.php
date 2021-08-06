@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Http\Controllers\BatalhaController;
 use App\Jobs\Batalha;
 use App\Jobs\Capturar;
+use App\Jobs\Encontrar;
 use App\Services\Output;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
