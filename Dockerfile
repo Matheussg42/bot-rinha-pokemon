@@ -25,4 +25,4 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 && php /usr/local/bin/composer install \
 && php artisan migrate --force
 
-CMD php artisan queue:work --queue=batalhas & php artisan twitter:listen-for-hash-tags
+CMD php artisan queue:work --queue=batalhas & php artisan queue:work --queue=capturar & php artisan queue:work --queue=encontrar & php artisan twitter:listen-for-hash-tags
