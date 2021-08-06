@@ -13,7 +13,7 @@ use Performance\Performance;
 use Intervention\Image\ImageManager as Image;
 use Mpdf\Mpdf;
 
-class ListenForHashTagsTest extends Command
+class EncontrarPokemonTest extends Command
 {
     use DispatchesJobs;
 
