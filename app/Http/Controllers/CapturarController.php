@@ -59,10 +59,12 @@ class CapturarController extends Controller
         $equipeFormada=[];
         $pokemonController = new PokemonController();
 
+        var_dump($equipe);
+
         try {
-            array_push($equipeFormada, ['treinador'=> $equipe['treinador'], 'pokemon'=> $pokemonController->getPokemon(strtolower(trim($equipe['pokemon'])))]);
+            array_push($equipeFormada, ['treinador'=> $equipe[0]['treinador'], 'pokemon'=> $pokemonController->getPokemon(strtolower(trim($equipe[0]['pokemon'])))]);
         } catch (\Exception $e) {
-            var_dump("Pokemon({$equipe['pokemon']}) do {$equipe['treinador']} não encontrado.");
+            var_dump($e);
             $this->status = false;
         }
 
@@ -146,7 +148,7 @@ class CapturarController extends Controller
         $cor = config("services.colors.{$pokemon['pokemon']['corTexto']}");
         $retorno = "<p style='margin-top: -10px;margin-bottom: 0; height: 55px; color: {$cor}'>{$pokemon['treinador']} escolheu {$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']}) <img style='width: 70px' src='{$pokemon['pokemon']['imagem']}'></p>";
         if($tipoApresentacao){
-            $retorno = "<p style='margin-bottom: 0; height: 55px; color: #491217'>{$pokemon['treinador']} selvagem apareceu!</p>";
+            $retorno = "<p style='margin-bottom: 0; height: 55px; color: #491217'>{$pokemon['pokemon']['nome']} selvagem apareceu! <img style='width: 70px' src='{$pokemon['pokemon']['imagem']}'></p>";
         }
 
         return $retorno;
