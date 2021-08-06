@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Http\Controllers\BatalhaController;
-use App\Jobs\ProcessTweet;
+use App\Jobs\Batalha;
 use App\Services\Output;
 use Illuminate\Console\Command;
 use App\Http\Controllers\TwitterController;

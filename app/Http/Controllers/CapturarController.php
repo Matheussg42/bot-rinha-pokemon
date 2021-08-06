@@ -6,7 +6,7 @@ use App\Http\Controllers\PokemonController;
 use Illuminate\Http\Request;
 use Performance\Performance;
 
-class BatalhaController extends Controller
+class CapturarController extends Controller
 {
     private array $equipe1;
     private array $equipe2;
@@ -54,18 +54,16 @@ class BatalhaController extends Controller
         return $result;
     }
 
-    private function formarEquipe($pokemons):array
+    private function formarEquipe($equipe):array
     {
         $equipeFormada=[];
         $pokemonController = new PokemonController();
 
-        foreach ($pokemons as $equipe){
-            try {
-                array_push($equipeFormada, ['treinador'=> $equipe['treinador'], 'pokemon'=> $pokemonController->getPokemon(strtolower(trim($equipe['pokemon'])))]);
-            } catch (\Exception $e) {
-                var_dump("Pokemon({$equipe['pokemon']}) do {$equipe['treinador']} não encontrado.");
-                $this->status = false;
-            }
+        try {
+            array_push($equipeFormada, ['treinador'=> $equipe['treinador'], 'pokemon'=> $pokemonController->getPokemon(strtolower(trim($equipe['pokemon'])))]);
+        } catch (\Exception $e) {
+            var_dump("Pokemon({$equipe['pokemon']}) do {$equipe['treinador']} não encontrado.");
+            $this->status = false;
         }
 
         return $equipeFormada;
@@ -95,7 +93,7 @@ class BatalhaController extends Controller
     {
         $this->batalha = "<div class='row align-items-start'>
                     <div class='col'>
-                        {$this->apresentacaoPokemon($this->round[0])}
+                        {$this->apresentacaoPokemon($this->round[0], 1)}
                     </div>
                     <div class='col'>
                         {$this->apresentacaoPokemon($this->round[1])}
@@ -143,12 +141,12 @@ class BatalhaController extends Controller
         }
     }
 
-    private function apresentacaoPokemon(array $pokemon):string
+    private function apresentacaoPokemon(array $pokemon, int $tipoApresentacao = 0):string
     {
         $cor = config("services.colors.{$pokemon['pokemon']['corTexto']}");
         $retorno = "<p style='margin-top: -10px;margin-bottom: 0; height: 55px; color: {$cor}'>{$pokemon['treinador']} escolheu {$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']}) <img style='width: 70px' src='{$pokemon['pokemon']['imagem']}'></p>";
-        if(!empty($pokemon['pokemon']['pokemonOriginal'])){
-            $retorno = "<p style='margin-bottom: 0; height: 55px; color: #f368e0'>{$pokemon['treinador']} escolheu Ditto!</p><p style='margin-top: -55px;margin-bottom: 15px; height: 55px; color: #f368e0'>Ditto usa <b>Impostor</b> se transforma em <span style='color: {$cor}'>{$pokemon['pokemon']['nome']}(HP {$pokemon['pokemon']['stats']['hp']})</span> <img style='width: 70px' src='{$pokemon['pokemon']['imagem']}'></p>";
+        if($tipoApresentacao){
+            $retorno = "<p style='margin-bottom: 0; height: 55px; color: #491217'>{$pokemon['treinador']} selvagem apareceu!</p>";
         }
 
         return $retorno;

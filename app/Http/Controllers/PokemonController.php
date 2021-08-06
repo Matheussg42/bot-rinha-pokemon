@@ -14,6 +14,25 @@ class PokemonController extends Controller
      * @param string $pokemon
      * @return array
      */
+    public function getNomePokemon(int $idPokemon):string
+    {
+        $response = Http::get("https://pokeapi.co/api/v2/pokemon/{$idPokemon}");
+        $response = $response->getBody();
+        $response = json_decode($response);
+
+        if(empty($response)){
+            throw new \Exception("Pokemon Não encontrado");
+        }
+
+        return $response->name;
+    }
+
+    /**
+     * Encontrar pokemon
+     *
+     * @param string $pokemon
+     * @return array
+     */
     public function getPokemon(string $pokemon):array
     {
         $pokemonOriginal='';

@@ -31,14 +31,37 @@ class TwitterController
         return $pokemons;
     }
 
-    public function responderTweet(int $tweet, array $vencedor, string $username, array $imagens):void
+    public function responderEncontrar(int $tweet, string $userQueMarcou, string $userTweetOriginal, string $pokemon):void
+    {
+        try {
+
+            $parameters = [
+                'status' => "@$userQueMarcou Um {$pokemon} selvagem apareceu! Capture ele! Pokemon: {$pokemon}",
+                'in_reply_to_status_id' => $tweet,
+                'username' => $userQueMarcou
+            ];
+
+            $this->connection->post('statuses/update', $parameters);
+        }catch (\Throwable $throwable){
+            echo $throwable;
+        }
+
+    }
+
+
+    public function responderTweet(int $tweet, array $vencedor, string $username, array $imagens, int $tipo = 0):void
     {
         try {
             $mediaIDstr = $this->getImagensTweet($imagens);
             $treinadorVencedor = $vencedor['treinador'] == $username ? "Você" : "@{$vencedor['treinador']}";
 
+            $msg = "@$username A Rinha de Pokémon acabou: {$treinadorVencedor} e {$vencedor['pokemon']['nome']} venceram! #Pokemon #PokemonBattle #BatalhaPokemon #RinhaDePokemon";
+            if($tipo){
+                $msg = $vencedor['treinador'] == $username ? "@$username Você acaba de capturar o Pokémon!" : "@$username O Pokémon escapou!";
+            }
+
             $parameters = [
-                'status' => "@$username A Rinha de Pokémon acabou: {$treinadorVencedor} e {$vencedor['pokemon']['nome']} venceram! #Pokemon #PokemonBattle #BatalhaPokemon #RinhaDePokemon",
+                'status' => $msg,
                 'media_ids' => $mediaIDstr,
                 'in_reply_to_status_id' => $tweet,
                 'username' => $username

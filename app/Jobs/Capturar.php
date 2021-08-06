@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Http\Controllers\BatalhaController;
+use App\Http\Controllers\CapturarController;
 use App\Http\Controllers\TwitterController;
 use App\Services\Output;
 use Illuminate\Bus\Queueable;
@@ -14,7 +15,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class ProcessTweet implements ShouldQueue
+class Capturar implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -45,7 +46,7 @@ class ProcessTweet implements ShouldQueue
         $pokemons = $twitterController->getPokemons($this->tweet['text'], $this->tweet['user']['screen_name'], $tweetOriginal->text, $tweetOriginal->user->screen_name);
 
         var_dump("Identificou os pokemons...");
-        $batalhaPokemon = new BatalhaController($pokemons);
+        $batalhaPokemon = new CapturarController($pokemons);
 
         if($batalhaPokemon->getStatus()) {
             var_dump("Montou equipes e preparou a batalha...");
@@ -61,7 +62,7 @@ class ProcessTweet implements ShouldQueue
                 unset($caminhoIMG['status']);
 
                 $twitterController = new TwitterController();
-                $twitterController->responderTweet($this->tweet['id'], $batalha['vencedor'], $this->tweet['user']['screen_name'], $caminhoIMG);
+                $twitterController->responderTweet($this->tweet['id'], $batalha['vencedor'], $this->tweet['user']['screen_name'], $caminhoIMG, 1);
                 $output->deleteOutputs($caminhoIMG);
 
                 var_dump("Salvou a imagem, twittou e apagou a imagem.");
