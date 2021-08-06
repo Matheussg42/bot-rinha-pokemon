@@ -58,15 +58,11 @@ class ListenForHashTags extends Command
                         var_dump("Caiu no if");
                         $job = (new Encontrar($tweet))->onQueue('encontrar');
                         $this->dispatch($job);
-                    }
-
-                    if( (str_contains($texto, 'CAPTURAR POKEMON') || str_contains($texto, 'CAPTURAR POKÉMON') || str_contains($texto, 'CAPTURAR')) )
+                    }else if( (str_contains($texto, 'CAPTURAR POKEMON') || str_contains($texto, 'CAPTURAR POKÉMON') || str_contains($texto, 'CAPTURAR')) )
                     {
                         $job = (new Capturar($tweet))->onQueue('capturar');
                         $this->dispatch($job);
-                    }
-
-                    if( (str_contains($texto , 'POKEMON:') || str_contains($texto, 'POKÉMON:')) )
+                    }else if( (str_contains($texto , 'POKEMON:') || str_contains($texto, 'POKÉMON:')) )
                     {
                         $job = (new Batalha($tweet))->onQueue('batalhas');
                         $this->dispatch($job);
