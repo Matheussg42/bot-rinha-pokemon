@@ -6,6 +6,7 @@ use App\Http\Controllers\BatalhaController;
 use App\Http\Controllers\PokemonController;
 use App\Http\Controllers\TwitterController;
 use App\Services\Output;
+use Egulias\EmailValidator\Exception\ExpectingQPair;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -38,16 +39,23 @@ class Encontrar implements ShouldQueue
      */
     public function handle()
     {
-        $twitterController = new TwitterController();
-        $idPokemon = mt_rand(1, 300);
+        try {
+            var_dump("Entrou no handle.");
+            $twitterController = new TwitterController();
+            $idPokemon = mt_rand(1, 300);
+            var_dump("Escolher o Pokemon {$idPokemon}");
 
-        $pokemonController = new PokemonController();
-        $pokemon = $pokemonController->getNomePokemon($idPokemon);
+            $pokemonController = new PokemonController();
+            $pokemon = $pokemonController->getNomePokemon($idPokemon);
 
-        $tweetOriginal = $twitterController->getTweet($this->tweet['in_reply_to_status_id']);
+            $tweetOriginal = $twitterController->getTweet($this->tweet['in_reply_to_status_id']);
 
-        $twitterController = new TwitterController();
-        $twitterController->responderEncontrar($this->tweet['id'], $this->tweet['user']['screen_name'], $tweetOriginal->user->screen_name, $pokemon);
+            $twitterController = new TwitterController();
+            $twitterController->responderEncontrar($this->tweet['id'], $this->tweet['user']['screen_name'], $tweetOriginal->user->screen_name, $pokemon);
+            var_dump("Postou");
+        } catch (Exception $e) {
+            echo 'Exceção capturada: ',  $e->getMessage(), "\n";
+        }
 
     }
 }
