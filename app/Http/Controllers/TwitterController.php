@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
 use Abraham\TwitterOAuth\TwitterOAuth;
+use Exception;
 use Performance\Performance;
 use Illuminate\Support\Facades\Log;
 
@@ -15,39 +16,21 @@ class TwitterController
 
     public function __construct()
     {
-        $this->connection = new TwitterOAuth(env('TWITTER_CONSUMER_KEY'), env('TWITTER_CONSUMER_SECRET'), env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+        $this->connection = new TwitterOAuth(
+            env('TWITTER_CONSUMER_KEY'), 
+            env('TWITTER_CONSUMER_SECRET'), 
+            env('TWITTER_ACCESS_TOKEN'), 
+            env('TWITTER_ACCESS_TOKEN_SECRET')
+        );
     }
 
-    public function getPokemons(string $resposta, string $usuarioResposta, string $tweetOriginal, string $usuarioOriginal)
+    public function getPokemons(string $resposta, string $usuarioResposta, string $tweetOriginal, string $usuarioOriginal): array
     {
-        var_dump($resposta);
-        var_dump($usuarioResposta);
-        var_dump($tweetOriginal);
-        var_dump($usuarioOriginal);
-
         $pokemons[] = $this->getEquipe($tweetOriginal, $usuarioOriginal);
         $pokemons[] = $this->getEquipe($resposta, $usuarioResposta);
 
         return $pokemons;
     }
-
-    public function responderEncontrar(int $tweet, string $userQueMarcou, string $userTweetOriginal, string $pokemon):void
-    {
-        try {
-
-            $parameters = [
-                'status' => "@$userQueMarcou Um {$pokemon} selvagem apareceu! Capture ele! Pokemon: {$pokemon}",
-                'in_reply_to_status_id' => $tweet,
-                'username' => $userQueMarcou
-            ];
-
-            $this->connection->post('statuses/update', $parameters);
-        }catch (\Throwable $throwable){
-            echo $throwable;
-        }
-
-    }
-
 
     public function responderTweet(int $tweet, array $vencedor, string $username, array $imagens, int $tipo = 0):void
     {
@@ -69,7 +52,7 @@ class TwitterController
 
             $this->connection->post('statuses/update', $parameters);
         }catch (\Throwable $throwable){
-            echo $throwable;
+            throw new Exception("Erro ao processar tweet! Mensagem: {$throwable->getMessage()}", 500);
         }
 
     }

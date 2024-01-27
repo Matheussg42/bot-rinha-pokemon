@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\PokemonController;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Performance\Performance;
 
@@ -31,7 +32,7 @@ class BatalhaController extends Controller
         return $this->equipe2;
     }
 
-    public function getStatus()
+    public function getStatus(): bool
     {
         return $this->status;
     }
@@ -63,7 +64,7 @@ class BatalhaController extends Controller
             try {
                 array_push($equipeFormada, ['treinador'=> $equipe['treinador'], 'pokemon'=> $pokemonController->getPokemon(strtolower(trim($equipe['pokemon'])))]);
             } catch (\Exception $e) {
-                var_dump("Pokemon({$equipe['pokemon']}) do {$equipe['treinador']} não encontrado.");
+                Log::error("Pokemon({$equipe['pokemon']}) do {$equipe['treinador']} não encontrado. Mensagem: {$e->getMessage()}");
                 $this->status = false;
             }
         }

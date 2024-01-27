@@ -43,33 +43,16 @@ class ListenForHashTags extends Command
     {
         TwitterStreamingApi::publicStream()
             ->whenHears($this->palavras, function (array $tweet) {
-                var_dump("{$tweet['user']['name']} twittou e marcou a gente!" . PHP_EOL);
                 if(!empty($tweet['in_reply_to_status_id_str'])){
 
                     $texto = strtoupper($tweet['text']);
-                    var_dump($texto);
-                    var_dump(str_contains($texto, 'ENCONTRE POKEMON'));
 
-                    if(
-                        (str_contains($texto, 'PROCURE POKEMON') || str_contains($texto, 'PROCURE POKÉMON') ||
-                        str_contains($texto, 'ENCONTRE POKEMON') || str_contains($texto, 'ENCONTRE POKÉMON'))
-                    )
-                    {
-                        var_dump("Caiu no if");
-                        $job = (new Encontrar($tweet))->onQueue('encontrar');
-                        $this->dispatch($job);
-                    }else if( (str_contains($texto, 'CAPTURAR POKEMON') || str_contains($texto, 'CAPTURAR POKÉMON') || str_contains($texto, 'CAPTURAR')) )
-                    {
-                        $job = (new Capturar($tweet))->onQueue('capturar');
-                        $this->dispatch($job);
-                    }else if( (str_contains($texto , 'POKEMON:') || str_contains($texto, 'POKÉMON:')) )
-                    {
+                    if((str_contains($texto , 'POKEMON:') || str_contains($texto, 'POKÉMON:'))){
                         $job = (new Batalha($tweet))->onQueue('batalhas');
                         $this->dispatch($job);
                     }
                 }
-            })
-            ->startListening();
+            })->startListening();
     }
 
 }

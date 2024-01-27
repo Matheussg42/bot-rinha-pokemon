@@ -98,7 +98,7 @@ class PokemonController extends Controller
 
     private function getTipoInfo(object $type):array
     {
-        $info=['nome'=>$type->name];
+        $info=['nome' => $type->name];
         $response = Http::get($type->url);
         $response = $response->getBody();
         $response = json_decode($response);
